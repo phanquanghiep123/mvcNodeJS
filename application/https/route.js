@@ -1,1 +1,1 @@
-_Route.add("/home/index","home","index");
+_Route.add("/home/index/:id/:member","home","index");

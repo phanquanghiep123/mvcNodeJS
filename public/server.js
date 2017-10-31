@@ -1,10 +1,10 @@
 _Path     = __dirname + "/";
-var require  = require(_Path + '../system/autoload.js');
-var autoload = new require();
+var _require  = require(_Path + '../system/autoload.js');
+var _autoload = new _require();
 _App         = null ;
 _Response    = null;
 _Request     = null;
-_Setup       = new autoload.setup();
+_Setup       = new _autoload.setup();
 
 //--------------------------set path folder------------------------------------------;
 _F_controler = _Path + ".." + _Setup._F_controler;
@@ -15,7 +15,11 @@ _F_https     = _Path + ".." + _Setup._F_https;
 
 //--------------------------!set path folder--------------------------------------------;
 
-_App         = new autoload.express();
-_Route       = new autoload.route();
-_Http        = new autoload.http();
-_Controller  = new autoload.controller();
+_App         = new _autoload.express();
+_Phoenix     = new _autoload.phoenix();
+_Route       = new _autoload.route();
+_Http        = new _autoload.http();
+_Controller  = new _autoload.controller();
+//-----------------------------------------------Add custom route---------------------------------;
+require(_F_https + "route.js");
+//-----------------------------------------------!Add custom route---------------------------------;

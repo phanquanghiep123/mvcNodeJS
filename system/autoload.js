@@ -1,4 +1,5 @@
 function Autoload(argument) {
+	this.phoenix    = require('./core/phoenix.js');
 	this.setup      = require('./config/setup.js');
 	this.express    = require('express');
 	this.http       = require('./core/http.js');

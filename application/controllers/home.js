@@ -1,5 +1,7 @@
-_Controller.prototype = {
-	index : function (a){
-		console.log(this.Request);
-	}
+
+
+
+_Controller.index = function (a,b){
+	var c  = a + b;
+	this.Response.send(c.toString());
 }
