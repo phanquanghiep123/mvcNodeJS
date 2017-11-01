@@ -1,7 +1,10 @@
-
-
-
-_Controller.index = function (a,b){
-	var c  = a + b;
-	this.Response.send(c.toString());
+_Controller.prototype = {
+	constructor: _Controller,
+	home : {
+		index : function(a,b){
+			this.load.view("home.html",{"a":a,"b":b});
+			this.load.model("members");
+			this.members.getall();	
+		}
+	}
 }

@@ -5,5 +5,7 @@ function Autoload(argument) {
 	this.http       = require('./core/http.js');
 	this.route      = require('./core/route.js');
 	this.controller = require('./core/controller.js');
+	this.model      = require('./core/model.js');
+	require('./core/helper.js');
 }
 module.exports = Autoload;

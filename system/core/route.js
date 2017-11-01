@@ -5,9 +5,9 @@ function Router(){
 		var a = $Action.toLowerCase().trim();
 		var _this = this;
 		_App.get($Url,function(req,res,next){	
-		   _Controller.Request   = req;
-		    _Controller.Response = res;
-		    _Controller.Next     = next;
+		    _Controller.request  = req;
+		    _Controller.response = res;
+		    _Controller.next     = next;
 		    _this.make(c,a) ;
 		});
 	},
@@ -16,9 +16,9 @@ function Router(){
 		var a = $Action.toLowerCase().trim();
 		var _this = this;
 		_App.get($Url,function(req,res,next){	
-		    _Controller.Request  = req;
-		    _Controller.Response = res;
-		    _Controller.Next     = next;
+		    _Controller.request  = req;
+		    _Controller.response = res;
+		    _Controller.next     = next;
 		    _this.make(c,a) ;
 		});
 	},
@@ -27,16 +27,16 @@ function Router(){
 		var a = $Action.toLowerCase().trim();
 		var _this = this;
 		_App.get($Url,function(req,res,next){	
-		    _Controller.Request  = req;
-		    _Controller.Response = res;
-		    _Controller.Next     = next;
+		    _Controller.request  = req;
+		    _Controller.response = res;
+		    _Controller.next     = next;
 		    _this.make(c,a) ;
 		});
 	},
 	this.make = function(c,a){
-		_Controller.Info.Controller = c;
-		_Controller.Info.Action     = a;
-		var params    = _Controller.Request.params;
+		_Controller.info.controller = c;
+		_Controller.info.action     = a;
+		var params    = _Controller.request.params;
 		var stringP   = "";
 		var argparams = [];
 		for (var key in params){
@@ -45,11 +45,9 @@ function Router(){
 					argparams.push(params[key].trim());
 		}
 		stringP = argparams.join(",");
-		var StringEval = "_Controller['"+a+"']("+stringP+");"; 
-		console.log(StringEval)
-		require(_F_controler + c );
+		require(_F_controlers + c );
+		var StringEval = "_Controller."+c+"['"+a+"']("+stringP+");";
 		eval(StringEval);
-
 	}
 }
 module.exports = Router;

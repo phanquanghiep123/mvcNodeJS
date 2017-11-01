@@ -1,13 +1,12 @@
 function Controller() {
-	this.Request;
-	this.Response;
-	this.Next;
-	this.Info = {};
-	this.loadView = function( $file = "", $data = {}, $return = false){
-		_Controller.Info.View.push([{file : $file,data : $data, return : $return}]);
-		var view = _Phoenix.loadView($file, $data, $return);
-		if($return) return view;
-		else Response.sent(view);
-	}
+	this.request;
+	this.response;
+	this.next;
+	this.info = [];
+	this.info.view  = [];
+	this.info.model = [];
+	var _load = require("./loader.js");
+	this.load = new _load();
+	
 }
 module.exports = Controller;
