@@ -42,16 +42,14 @@ EscapeString = function(str) {
 }
 checkLogin = function() {
 	if (_SessionInfor.Username == undefined && _SessionInfor.Password == undefined) {
-		_Controler.response.redirect('/admin/login');
+		_Controller.response.redirect('/admin/login');
 	}
 }
 checkDoneLogin = function() {
 	if (_SessionInfor.Username !== undefined && _SessionInfor.Password !== undefined) {
-		_Controler.response.redirect('/admin');
+		_Controller.response.redirect('/admin');
 	}
 }
-
-
 joinArray = function(InputArray, str) {
 	var array = [];
 	for (x in InputArray) {
@@ -63,7 +61,7 @@ joinArray = function(InputArray, str) {
 write = function(string) {
 	if(typeof string === "string"){
 		string = String(string);
-		_Controler.response.write(string);
+		_Controller.response.write(string);
 		return true;
 	}
 	return false;
@@ -71,7 +69,7 @@ write = function(string) {
 send = function(string) {
 	if(typeof string === "string"){
 		string = String(string);
-		_Controler.response.write(string);
+		_Controller.response.send(string);
 	}
 	else
 		return false;
@@ -80,7 +78,7 @@ start = function() {
 	return true;
 }
 end = function() {
-	_Controler.response.end();
+	_Controller.response.end();
 	return true;
 }
 

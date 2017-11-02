@@ -11,11 +11,11 @@ function Loader(argument) {
 		_Controller.info.view.push(dataload);
 		var view = _Phoenix.loadview($file, $data, $return);
 		if($return) return view;
-		else _Controller.response.send(view);
+		else _Controller.response.write(view);
 		return true;
 	}
 	this.helper = function (){
-
+		return true;
 	}
 }
 module.exports = Loader;

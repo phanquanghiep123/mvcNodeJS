@@ -1,6 +1,5 @@
-_Model.members  = {
-	constructor: _Model,
-    getall : function(){
-
-    }
+_Model.members = function() {
+	this.getall = function(){
+		console.log(1);
+	}	 
 }

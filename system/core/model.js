@@ -1,6 +1,6 @@
 function Model() {
-	this.db ;
-	this.table;
+	this.db  = 100;
+	this.table = "abc";
 	this.sql;
 	this.reset;
 }

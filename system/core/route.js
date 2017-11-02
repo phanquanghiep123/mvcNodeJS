@@ -46,7 +46,7 @@ function Router(){
 		}
 		stringP = argparams.join(",");
 		require(_F_controlers + c );
-		var StringEval = "_Controller."+c+"['"+a+"']("+stringP+");";
+		var StringEval = "_Controller['"+a+"']("+stringP+");";
 		eval(StringEval);
 	}
 }
