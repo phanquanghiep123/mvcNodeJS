@@ -1,5 +1,5 @@
-_Model.members = function() {
-	this.getall = function(){
-		console.log(1);
+_Model.members = {
+	getall : function(){
+		//console.log(this);
 	}	 
 }

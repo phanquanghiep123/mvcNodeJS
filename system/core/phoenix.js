@@ -2,6 +2,7 @@ function Phoenix(argument) {
 	this.loadview = function($file, $data, $return = false){
 		var view = _Fs.readFileSync(_F_views + $file, 'utf8');
 		var DataString = strEval = evalString = "";
+		var phoenix = _Controller[_Controller.info.controller].phoenix;
 		if ($data != null) {
 			for (var key in $data ){
 				if (typeof $data[key] === "object")  value_set = JSON.stringify(value);
@@ -25,16 +26,16 @@ function Phoenix(argument) {
 						eval(evalString.trim());
 						DataString += evalArg[1];
 					} catch (e) {
-						if (e instanceof SyntaxError) Write(e.message);
-						else console.log(e);
+						if (e instanceof SyntaxError) write(e.message);
+						else write(e);
 					}
 				}
             }
 			
 		}
 		catch (e) {
-			if (e instanceof SyntaxError) return(e.message);
-			else console.log(e);
+			if (e instanceof SyntaxError) write(e.message);
+			else write(e);
 		}
 		return DataString;
 	}

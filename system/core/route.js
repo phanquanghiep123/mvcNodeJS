@@ -1,6 +1,6 @@
 function Router(){
 	//auto create route form url
-	this.add  = function($Url,$Controller,$Action){
+	this.all  = function($Url,$Controller,$Action){
 		var c = $Controller.toLowerCase().trim();
 		var a = $Action.toLowerCase().trim();
 		var _this = this;
@@ -11,7 +11,7 @@ function Router(){
 		    _this.make(c,a) ;
 		});
 	},
-	this.addGet = function($Url,$Controller,$Action){
+	this.get = function($Url,$Controller,$Action){
 		var c = $Controller.toLowerCase().trim();
 		var a = $Action.toLowerCase().trim();
 		var _this = this;
@@ -22,7 +22,7 @@ function Router(){
 		    _this.make(c,a) ;
 		});
 	},
-	this.addPost = function($Url,$Controller,$Action){
+	this.post = function($Url,$Controller,$Action){
 		var c = $Controller.toLowerCase().trim();
 		var a = $Action.toLowerCase().trim();
 		var _this = this;
@@ -46,8 +46,17 @@ function Router(){
 		}
 		stringP = argparams.join(",");
 		require(_F_controlers + c );
-		var StringEval = "_Controller['"+a+"']("+stringP+");";
-		eval(StringEval);
+		_Controller.init(c);
+		var StringEval = "_Controller['"+c+"']['"+a+"']("+stringP+");";
+		_Controller.__construct();
+		try {
+			eval(StringEval.trim());
+		} catch (e) {
+			if (e instanceof SyntaxError) write(e.message);
+			else write(e);
+		}
+		_Controller.__destructors();
+		
 	}
 }
 module.exports = Router;

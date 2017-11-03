@@ -129,13 +129,3 @@ Array.prototype.clean = function(deleteValue) {
 	}
 	return this;
 }
-Peval = function($string){
-	try {
-		eval($string.trim());
-		return true;
-	} catch (e) {
-		if (e instanceof SyntaxError) write(e.message);
-		else console.log(e);
-		return true;
-	}
-}
