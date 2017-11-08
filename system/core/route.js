@@ -1,41 +1,35 @@
 function Router(){
 	//auto create route form url
-	this.all  = function($Url,$Controller,$Action){
-		var c = $Controller.toLowerCase().trim();
-		var a = $Action.toLowerCase().trim();
+	this.add = function ($Option,$midellwell = null){
+		var c     = $Option.controller.toLowerCase().trim();
+		var a     = $Option.action.toLowerCase().trim();
 		var _this = this;
-		_App.get($Url,function(req,res,next){	
+		_App[$Option.type]($Option.url,function(req,res,next){	
+			if($midellwell != null) $midellwell();
+			if($Option.midellwell != null) $Option.midellwell();
 		    _Controller.request  = req;
 		    _Controller.response = res;
 		    _Controller.next     = next;
 		    _this.make(c,a) ;
+		    return true;
 		});
-	},
-	this.get = function($Url,$Controller,$Action){
-		var c = $Controller.toLowerCase().trim();
-		var a = $Action.toLowerCase().trim();
-		var _this = this;
-		_App.get($Url,function(req,res,next){	
-		    _Controller.request  = req;
-		    _Controller.response = res;
-		    _Controller.next     = next;
-		    _this.make(c,a) ;
-		});
-	},
-	this.post = function($Url,$Controller,$Action){
-		var c = $Controller.toLowerCase().trim();
-		var a = $Action.toLowerCase().trim();
-		var _this = this;
-		_App.get($Url,function(req,res,next){	
-		    _Controller.request  = req;
-		    _Controller.response = res;
-		    _Controller.next     = next;
-		    _this.make(c,a) ;
-		});
-	},
+	}
+	this.group = function ($Path,$Option,$midellwell = null){
+		var length = Object.keys($Option).length;
+		var item;
+		for (var i = 0 ;i < length; i++){
+			item = $Option[i];
+			item.url = $Path + item.url;
+			this.add(item,$midellwell);
+		}
+	}
 	this.make = function(c,a){
-		_Controller.info.controller = c;
-		_Controller.info.action     = a;
+		var argUrrl = c.split("/");
+		var $Controller = argUrrl[(argUrrl.length -1 )];
+		var $Action     = a;
+		_Controller.info.file = c;
+		_Controller.info.controller = $Controller;
+		_Controller.info.action     = $Action;
 		var params    = _Controller.request.params;
 		var stringP   = "";
 		var argparams = [];
@@ -47,16 +41,17 @@ function Router(){
 		stringP = argparams.join(",");
 		require(_F_controlers + c );
 		_Controller.init(c);
-		var StringEval = "_Controller['"+c+"']['"+a+"']("+stringP+");";
+		var StringEval = "_Controller['"+$Controller+"']['"+$Action+"']("+stringP+");";
 		_Controller.__construct();
+		_Controller[$Controller].__construct();
 		try {
 			eval(StringEval.trim());
 		} catch (e) {
 			if (e instanceof SyntaxError) write(e.message);
 			else write(e);
 		}
-		_Controller.__destructors();
-		
+		_Controller[$Controller].__destructors();
+		_Controller.__destructors();	
 	}
 }
 module.exports = Router;

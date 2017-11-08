@@ -1,20 +1,16 @@
 function Model() {
-	this.info  = {};
-	this.db    = {};
-	this.table = {};
+	var _db = require('./db.js');
+	this.db = new _db();
 	this.__construct   = function(){console.log("__construct")}
 	this.__destructors =  function(){console.log("__destructors")}
 	this.init = function($object){
-		this[$object].phoenix = this;
-		try{
-			if(typeof this[$object].__construct !== "undefined")
-				this.__construct   = this[$object].__construct;
-			if(typeof this[$object].__destructors !== "undefined")
-				this.__destructors = this[$object].__destructors;
-		}catch ($e){
-			this.__construct   = this.__construct;
-			this.__destructors = this.__destructors;
-		}
+		var that  = this[$object];
+		delete this[$object];
+		this[$object] = Object.assign(that,this);
+		if(typeof this[$object].__construct === "undefined")
+			this[$object].__construct = this.__construct;
+		if(typeof this[$object].__destructors === "undefined")
+			this[$object].__destructors = this.__destructors;
 		return this[$object].phoenix;
 	}
 }

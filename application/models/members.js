@@ -1,5 +1,7 @@
-_Model.members = {
+_Model.members  ={
 	getall : function(){
-		//console.log(this);
+		this.db.from("members AS tbl2");
+		this.db.where("tbl2.id",1);
+		this.db.get();
 	}	 
 }
